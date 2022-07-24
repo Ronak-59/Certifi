@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+
 import {Buffer} from 'buffer';
+
+import Home from './routes/Home';
+import Issuer from './routes/Issuer';
+import Receiver from "./routes/Receiver";
+import Verifier from "./routes/Verifier";
 
 import logo from './logo.svg';
 import './App.css';
@@ -73,37 +80,50 @@ function App() {
     }
   });
 
-
-
-  //issue credential
-  //revoke credential
-  //view hashes
-
-
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <p>
-          Your address is {publicAddress}
-        </p>
-        <button onClick={runHashes}>Run Hashes</button>
-        <button onClick={issueCredential}>Issue Credential</button>
-        <button onClick={revokeCredential}>Revoke Credential</button>
-
-        <form onSubmit={handleSubmit}>
-          <input type="file" onChange={retrieveFile} />
-          <button type="submit" className="button">Submit</button>
-        </form>
-
-        <button onClick={signMessage}>Sign Message</button>
-
-      </header>
-    </div>
+      <div className={"App"}>
+        <Router>
+          <nav>
+            <ul>
+              <li><Link to="/issuer">Issuer</Link></li>
+              <li><Link to="/verifier">Verifier</Link></li>
+              <li><Link to="/receiver">Receiver</Link></li>
+            </ul>
+          </nav>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/issuer" element={<Issuer />} />
+            <Route path="/verifier" element={<Verifier />} />
+            <Route path="/receiver" element={<Receiver />} />
+          </Routes>
+        </Router>
+      </div>
   );
+
+  // return (
+  //   <div className="App">
+  //     <header className="App-header">
+  //       <img src={logo} className="App-logo" alt="logo" />
+  //       <p>
+  //         Edit <code>src/App.js</code> and save to reload.
+  //       </p>
+  //       <p>
+  //         Your address is {publicAddress}
+  //       </p>
+  //       <button onClick={runHashes}>Run Hashes</button>
+  //       <button onClick={issueCredential}>Issue Credential</button>
+  //       <button onClick={revokeCredential}>Revoke Credential</button>
+  //
+  //       <form onSubmit={handleSubmit}>
+  //         <input type="file" onChange={retrieveFile} />
+  //         <button type="submit" className="button">Submit</button>
+  //       </form>
+  //
+  //       <button onClick={signMessage}>Sign Message</button>
+  //
+  //     </header>
+  //   </div>
+  // );
 }
 
 export default App;
