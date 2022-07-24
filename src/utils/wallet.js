@@ -106,10 +106,14 @@ const utils = {
             "type": "function"
         }
     ],
-    contract_address: "TJRLpvvkiEfhYy8HSdPjYza3EuSxSY3bmu",
+    contract_address: "TGowP5LUwFR2ZfCqJp3R46Wym6JkWy9Mek",
 
-    async setContract(tronWeb) {
-        this.contract = await tronWeb.contract(this.abi, this.contract_address);
+    setTronWeb(tronWeb) {
+        this.tronWeb  = tronWeb;
+    },
+
+    async setContract() {
+        this.contract = await this.tronWeb.contract(this.abi, this.contract_address);
     },
 
     async runHashes() {
@@ -132,6 +136,11 @@ const utils = {
             callValue: 0,
             shouldPollResponse:true
         });
+        return h;
+    },
+
+    async signMessage(tronWeb) {
+        let h = await this.tronWeb.trx.sign(this.tronWeb.toHex("hello"));
         return h;
     }
 };
