@@ -5,7 +5,7 @@ const {createHash, encrypt, decrypt, getAddressFromSignature} = require('./utils
 const Credentials = require('./models/credentialSchema');
 require('dotenv').config();
 const app = express()
-const port = 5000
+const port = 5544
 
 app.use(bodyParser.json());
 
