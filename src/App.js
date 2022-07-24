@@ -9,7 +9,7 @@ function App() {
   const eventServer = 'https://api.shasta.trongrid.io';
   const privateKey = 'xxx';
   const tronWeb = new TronWeb(fullNode,solidityNode,eventServer);
-  const publicAddress = window.tronWeb.defaultAddress.base58
+  const publicAddress = window.tronWeb.defaultAddress.base58;
 
   useEffect(() => {
 
