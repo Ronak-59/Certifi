@@ -6,6 +6,7 @@ import TronWeb from "tronweb";
 import utils from "../utils/wallet";
 import {sha256} from 'js-sha256'
 import {issueCredential as issueCredApi, getIssuedCredentials} from "../utils/api";
+import { useLocation } from 'react-router-dom'
 
 const IPFSClient = create('https://ipfs.infura.io:5001/api/v0');
 
@@ -14,9 +15,14 @@ const solidityNode = 'https://api.shasta.trongrid.io';
 const eventServer = 'https://api.shasta.trongrid.io';
 let tronWeb = new TronWeb(fullNode,solidityNode,eventServer, '');
 
+const activeClasses = "inline-flex p-4 text-blue-600 rounded-t-lg border-b-2 border-blue-600 active dark:text-blue-500 dark:border-blue-500 group";
+const inActiveClasses = "inline-flex p-4 rounded-t-lg border-b-2 border-transparent hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 group";
+
 export function Issuer(props) {
     const [publicAddress, setPublicAddress] = useState('');
     const [currentlyVieweing, setCurrentlyViewing] = useState(0);
+    const [tab1, setTab1] = useState(activeClasses);
+    const [tab2, setTab2] = useState(inActiveClasses);
 
     useEffect(() => {
         if(window.tronWeb) {
@@ -27,19 +33,36 @@ export function Issuer(props) {
         }
     }, []);
 
+    function toggle(activeTab, inActiveTab) {
+        activeTab(activeClasses);
+        inActiveTab(inActiveClasses);
+    }
+
     return (
         <div>
-            <h1> For Institutions </h1>
-            <ul className="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
-                <li className="mr-2">
-                    <Link to="issue-credentials" aria-current="page"
-                       className="inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500">Profile</Link>
-                </li>
-                <li className="mr-2">
-                    <Link to="view-credentials"
-                       className="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300">Dashboard</Link>
-                </li>
-            </ul>
+            <h1 className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">Institution Dashboard</h1>
+            <div className="border-b border-gray-200 dark:border-gray-700 grid place-items-center">
+                <ul className="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+                    <li className="mr-2" onClick={(e) => toggle(setTab1, setTab2)}>
+                        <Link to="issue-credentials"
+                           className={tab1}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                            </svg>
+                            Issue Credentials
+                        </Link>
+                    </li>
+                    <li className="mr-2" onClick={(e) => toggle(setTab2, setTab1)}>
+                        <Link to="view-credentials"
+                           className={tab2}>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                            </svg>
+                            View Issues Credentials
+                        </Link>
+                    </li>
+                </ul>
+            </div>
 
             <Outlet />
 
