@@ -103,15 +103,11 @@ function timestampToDate(timestamp){
     return date;
 }
 
-function addDefaultSrc(ev){
-    ev.target.src = 'https://www.seekpng.com/png/full/516-5166111_certification-certification-icon.png';
-    ev.target.onerror = null;
-}
-
 class Card extends React.Component {
+
     render() {
         return (
-        <a href={'https://ipfs.infura.io/ipfs/'+this.props.details.credentialMetadata.credentialFileHash}
+        <a href='#'
            className="block p-6 max-w-md bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <div style={{textAlign: 'center', display: 'inline-table', position: 'relative'}}>
                 <img className="rounded-t-lg" onError={(event)=>event.target.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Gnome-application-certificate.svg/1024px-Gnome-application-certificate.svg.png")} src={'https://ipfs.infura.io/ipfs/'+this.props.details.credentialMetadata.credentialFileHash} alt="" style={{height: '150px'}}  />
@@ -121,9 +117,23 @@ class Card extends React.Component {
             <Button link={'https://ipfs.infura.io/ipfs/'+this.props.details.credentialMetadata.credentialFileHash} value='View'/>
             <Button link={'../verifier/'+this.props.details.encryptedHash} value='Verify'/>
             <Button link={'https://shasta.tronscan.org/#/transaction/'+this.props.details.blockchainTxnHash} value='View on TronScan'/>
+            <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Download</button>
         </a>
         )
     }
 }
+
+// function downloadCredential(metaData) {
+//     const json=JSON.stringify(metaData);
+//     const blob=new Blob([json],{type:'application/json'});
+//     const href = URL.createObjectURL(blob);
+//     const link = document.createElement('a');
+//     link.href = href;
+//     link.download = "credential.json";
+//     document.body.appendChild(link);
+//     link.click();
+//     document.body.removeChild(link);
+// }
+
 
 export default Receiver;
