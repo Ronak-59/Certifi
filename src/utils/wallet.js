@@ -1,6 +1,9 @@
+import Cookies from 'js-cookie';
+
 const utils = {
     tronWeb: false,
     contract: false,
+    signature_message: "TRON_HACKATHON_2022",
     abi: [
         {
             "inputs": [],
@@ -125,7 +128,7 @@ const utils = {
         let h = await this.contract.issue_credential(_hash, recipient).send({
             feeLimit:100_000_000,
             callValue: 0,
-            shouldPollResponse:true
+            shouldPollResponse: false
         });
         return h;
     },
@@ -134,14 +137,19 @@ const utils = {
         let h = await this.contract.revoke_credential(_hash).send({
             feeLimit:100_000_000,
             callValue: 0,
-            shouldPollResponse:true
+            shouldPollResponse:false
         });
         return h;
     },
 
-    async signMessage(tronWeb) {
-        let h = await this.tronWeb.trx.sign(this.tronWeb.toHex("hello"));
-        return h;
+    async signMessage() {
+        let res = Cookies.get('signedMessage');
+        if(res){
+            return res;
+        }
+        res = await this.tronWeb.trx.sign(this.tronWeb.toHex(this.signature_message));
+        Cookies.set('signedMessage', res, { expires: 1 });
+        return res;
     }
 };
 

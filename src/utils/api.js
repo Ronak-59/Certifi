@@ -3,9 +3,10 @@ import axios from 'axios';
 const instance = axios.create({
     baseURL: 'http://54.89.89.217:5544'
 });
+
 const signature = "TODO";
 
-const issueCredential = async (signature, credentialMetadata, blockchainTxnHash) => {
+export const issueCredential = async (signature, credentialMetadata, blockchainTxnHash) => {
     try {
         const response = await instance.post('/issue-credential', {
             signature,
@@ -18,7 +19,7 @@ const issueCredential = async (signature, credentialMetadata, blockchainTxnHash)
     }
 }
 
-const revokeCredential = async (signature, encryptedHash) => {
+export const revokeCredential = async (signature, encryptedHash) => {
     try {
         const response = await instance.post('/revoke-credential', {
             signature,
@@ -30,7 +31,7 @@ const revokeCredential = async (signature, encryptedHash) => {
     }
 }
 
-const getIssuedCredentials = async (signature) => {
+export const getIssuedCredentials = async (signature) => {
     try {
         const response = await instance.post('/issued-credential', {
             signature,
@@ -41,7 +42,7 @@ const getIssuedCredentials = async (signature) => {
     }
 }
 
-const getReceivedCredentials = async (signature) => {
+export const getReceivedCredentials = async (signature) => {
     try {
         const response = await instance.post('/received-credential', {
             signature,
@@ -52,7 +53,7 @@ const getReceivedCredentials = async (signature) => {
     }
 }
 
-const fetchCredentialDetails = async (encryptedHash) => {
+export const fetchCredentialDetails = async (encryptedHash) => {
     try {
         const response = await instance.get('/fetch-credential-verifier/'+encryptedHash);
         return response.data;

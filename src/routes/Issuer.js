@@ -4,6 +4,8 @@ import {Buffer} from "buffer";
 import {create} from "ipfs-http-client";
 import TronWeb from "tronweb";
 import utils from "../utils/wallet";
+import {sha256} from 'js-sha256'
+import {issueCredential as issueCredApi, getIssuedCredentials} from "../utils/api";
 
 const IPFSClient = create('https://ipfs.infura.io:5001/api/v0');
 
@@ -61,19 +63,32 @@ export function IssueCredentials(props) {
             setError("Please enter a valid address");
         } else {
             if(recipient.charAt(0) != 'T'){
-                // setRecipient();
+                let h = await utils.tronWeb.address.fromHex(recipient);
+                setRecipient(h);
             }
-
             setError("");
+
             try {
                 const created = await IPFSClient.add(file);
                 const url = `https://ipfs.infura.io/ipfs/${created.path}`;
 
-                console.log(JSON.stringify({
-                    issuer: utils.tronWeb.defaultAddress.base58,
-                    recipient: recipient,
-                    credentialFileHash: created.path
-                }));
+                try {
+                    let credentialMetadata = {
+                        issuer: utils.tronWeb.defaultAddress.base58,
+                        recipient: recipient,
+                        credentialFileHash: created.path
+                    }
+                    let hashed_data = sha256(JSON.stringify(credentialMetadata));
+                    let txnHash = await utils.issueCredential(hashed_data, recipient);
+                    let signed_message = await utils.signMessage();
+
+                    let data = issueCredApi(signed_message, credentialMetadata, txnHash);
+                }
+                catch (error) {
+                    setError("We had some trouble sending the data to the TRON blockchain. Please try again.");
+                }
+
+
 
             } catch (error) {
                 setError("Please upload a file.");
@@ -85,7 +100,7 @@ export function IssueCredentials(props) {
         <div>
             <form onSubmit={handleSubmit}>
                 <p>{error}</p>
-                <input type="input" onChange={(v) => setRecipient(utils.tronWeb.address.fromHex(v.target.value))} placeholder="recipient address" />
+                <input type="input" onChange={(v) => setRecipient(v.target.value)} placeholder="recipient address" />
                 <input type="file" onChange={retrieveFile} />
                 <button type="submit" className="button">Issue Credential</button>
             </form>
@@ -94,6 +109,14 @@ export function IssueCredentials(props) {
 }
 
 export function ViewCredentials(props) {
+
+    const fetchData = async () => {
+        let signature = utils.signMessage();
+        let data = await getIssuedCredentials(signature);
+    };
+
+    fetchData();
+
     return (
         <div>
             <p>View Creds</p>

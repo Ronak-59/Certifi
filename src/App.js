@@ -64,7 +64,7 @@ function App() {
               <Route path="view-credentials" element={<ViewCredentials/>} />
             </Route>
             <Route path="/verifier" element={<Verifier />}>
-              <Route path=":hash" element={<Verifier />} />
+              <Route path=":hash" element={<Verifier  />} />
             </Route>
             <Route path="/receiver" element={<Receiver />} />
           </Routes>
