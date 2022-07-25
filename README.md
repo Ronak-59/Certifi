@@ -1,4 +1,4 @@
-# CertiFi
+# CertiFi - Academic Credentials powered by Blockchain
 
 Academic Credentialing Solution powered by IPFS and Tron Blockchain (Shasta Testnet) developed as part of [Tron Hackathon 2022 Season 2](https://trondao.org/hackathon).
 
