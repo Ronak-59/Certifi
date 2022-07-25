@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://localhost:5544'
+    baseURL: 'http://54.89.89.217:5544'
 });
 
 const signature = "TODO";
