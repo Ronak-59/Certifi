@@ -33,7 +33,7 @@ export const revokeCredential = async (signature, encryptedHash) => {
 
 export const getIssuedCredentials = async (signature) => {
     try {
-        const response = await instance.post('/issued-credential', {
+        const response = await instance.post('/issued-credentials', {
             signature,
         });
         return response.data;
@@ -44,7 +44,7 @@ export const getIssuedCredentials = async (signature) => {
 
 export const getReceivedCredentials = async (signature) => {
     try {
-        const response = await instance.post('/received-credential', {
+        const response = await instance.post('/received-credentials', {
             signature,
         });
         return response.data;
