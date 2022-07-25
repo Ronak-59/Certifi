@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create({
-    baseURL: 'http://54.89.89.217:5544'
+    baseURL: 'https://api.getcertifi.app'
 });
 
 export const issueCredential = async (signature, credentialMetadata, blockchainTxnHash) => {

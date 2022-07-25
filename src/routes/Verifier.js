@@ -62,6 +62,7 @@ function Verifier() {
         }
         catch (e) {
             setVerificationStatus(false);
+            setVerificationFailed(true);
         }
 
         setVerifying(false);
@@ -187,11 +188,11 @@ function Verifier() {
                         </div>
                         <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Verifying Issuer</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 grid place-items-center">{verificationStatus && (<img className="w-40 h-30" src={tick} />)}{verificationFailed && (<img className="w-40 h-30" src={xmark}></img>)}</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 grid place-items-center">{verificationStatus && (<img className="w-40 h-30" src={tick} />)}{verificationFailed && (<img className="w-20 h-20" src={xmark}></img>)}</dd>
                         </div>
                         <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Verifying Recipient</dt>
-                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 grid place-items-center">{verificationStatus && (<img className="w-40 h-30" src={tick} />)}{verificationFailed && (<img className="w-40 h-30" src={xmark}></img>)}</dd>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 grid place-items-center">{verificationStatus && (<img className="w-40 h-30" src={tick} />)}{verificationFailed && (<img className="w-20 h-20" src={xmark}></img>)}</dd>
                         </div>
                         <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                             <dt className="text-sm font-medium text-gray-500">Verifying Credential Status</dt>
