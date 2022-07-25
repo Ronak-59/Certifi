@@ -6,7 +6,7 @@ import logo from '../logo-certifi.png';
 import {Link} from "react-router-dom";
 
 const navigation = [
-    { name: 'Dashboard', href: '/', current: true },
+    { name: 'Dashboard', href: '/', current: false },
     { name: 'Institutions', href: '/institution/issue-credentials', current: false },
     { name: 'Learners', href: '/learner', current: false },
     { name: 'Verify Credentials', href: '/verifier', current: false },
@@ -66,7 +66,12 @@ export default function Example(props) {
                                 </div>
                             </div>
                             <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0 hidden md:block sm:ml-6">
-                                <p className="text-white">Logged in as {props.address}</p>
+                                {
+                                    props.address && <p className="text-white"> Logged in as {props.address}</p>
+                                }
+                                {
+                                    !props.address && <p className="text-white">You need the TronLink Extension installed.</p>
+                                }
                             </div>
                         </div>
                     </div>

@@ -71,6 +71,14 @@ function Receiver() {
         </div>
             <div>
                 <header className="app-header"></header>
+                <h3 className="text-lg leading-6 font-medium text-gray-900">Credentials Issued to You</h3>
+                {(!creds || !creds.length) &&
+                <div
+                    className="p-4 mb-4 mt-5 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800"
+                    role="alert">
+                    <span className="font-medium">No credentials have been issued to your address yet.</span>
+                </div>
+                }
                 <div className="card-grid" id="app-card-list">
                     {
                         Object

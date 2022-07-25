@@ -57,7 +57,7 @@ export function Issuer(props) {
                             <svg xmlns="http://www.w3.org/2000/svg" className="mr-2 h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 10h16M4 14h16M4 18h16" />
                             </svg>
-                            View Issues Credentials
+                            View Issued Credentials
                         </Link>
                     </li>
                 </ul>
@@ -73,6 +73,7 @@ export function IssueCredentials(props) {
 
     const [file, setFile] = useState(null);
     const [spinner, setSpinner] = useState(false);
+    const [hashedData, setHashedData] = useState(null);
     const [error, setError] = useState("");
     const [recipient, setRecipient] = useState("");
     const [success, setSuccess] = useState(null);
@@ -113,6 +114,7 @@ export function IssueCredentials(props) {
                     let hashed_data = sha256(JSON.stringify(credentialMetadata));
                     let txnHash = await utils.issueCredential(hashed_data, recipient);
                     let signed_message = await utils.signMessage();
+                    setHashedData(hashed_data);
                     setSuccess(txnHash);
                     setRecipient("");
                     let data = issueCredApi(signed_message, credentialMetadata, txnHash);
@@ -161,7 +163,7 @@ export function IssueCredentials(props) {
                                         className="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-200 dark:text-green-800"
                                         role="alert">
                                         <span className="font-medium">Credential Issued!</span> Your transaction has succeeded and you can
-                                        verify it here <a className="font-medium" href={`https://shasta.tronscan.org/#/transaction/${success}`}>TronScan</a>. The learner will be able to see it in their account and be able to verify it using our verifier.
+                                        verify it here <a className="font-medium" href={`https://shasta.tronscan.org/#/transaction/${success}`}>TronScan</a>. The learner will be able to see it in their account and be able to <Link to={`/verifier/${hashedData}`} className="font-medium">verify</Link> it using our verifier.
                                     </div>)}
 
                                     <div>
@@ -264,6 +266,13 @@ export function ViewCredentials(props) {
     return (
         <>
             <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-1">
+                {(!data || !data.length) &&
+                <div
+                    className="p-4 mb-4 mt-5 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800 grid place-items-center"
+                    role="alert">
+                    <span className="font-medium">No credentials have been issued by your address yet.</span>
+                </div>
+                }
                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
