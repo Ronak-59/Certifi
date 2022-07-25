@@ -172,7 +172,7 @@ export function IssueCredentials(props) {
                                             <input
                                                 id="about"
                                                 name="about"
-                                                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 block w-full sm:text-sm border border-gray-300 rounded-md"
+                                                className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 mt-1 p-2 block w-full md:text-md border border-gray-300"
                                                 defaultValue={''}
                                                 value={recipient}
                                                 onChange={(v) => setRecipient(v.target.value)} placeholder=" Recipient address"
