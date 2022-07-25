@@ -52,8 +52,6 @@ export function IssueCredentials(props) {
         reader.onloadend = () => {
             setFile(Buffer.from(reader.result, 'base64'));
         };
-
-        console.log(file);
         e.preventDefault();
     };
 
@@ -121,13 +119,20 @@ export function ViewCredentials(props) {
             let signature = await utils.signMessage();
             let data = await getIssuedCredentials(signature);
             setData(data);
-            console.log(data);
         }
     };
 
     return (
         <div>
-            <p>View Creds</p>
+            <table>
+                {data.map((item) => (
+                    <tr key={item._id}>
+                        {Object.values(item).map((val) => (
+                            <td>{val.toString()}</td>
+                        ))}
+                    </tr>
+                ))}
+            </table>
         </div>
     );
 }

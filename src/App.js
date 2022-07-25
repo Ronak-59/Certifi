@@ -25,15 +25,6 @@ function App() {
 
   const [publicAddress, setPublicAddress] = useState('');
 
-  function runHashes() {
-    utils.runHashes();
-  }
-
-  function revokeCredential() {
-    let cred = utils.revokeCredential("test2");
-    console.log(cred);
-  }
-
   useEffect(() => {
     if(window.tronWeb) {
       tronWeb = window.tronWeb;
@@ -67,31 +58,6 @@ function App() {
         </Router>
       </div>
   );
-
-  // return (
-  //   <div className="App">
-  //     <header className="App-header">
-  //       <img src={logo} className="App-logo" alt="logo" />
-  //       <p>
-  //         Edit <code>src/App.js</code> and save to reload.
-  //       </p>
-  //       <p>
-  //         Your address is {publicAddress}
-  //       </p>
-  //       <button onClick={runHashes}>Run Hashes</button>
-  //       <button onClick={issueCredential}>Issue Credential</button>
-  //       <button onClick={revokeCredential}>Revoke Credential</button>
-  //
-  //       <form onSubmit={handleSubmit}>
-  //         <input type="file" onChange={retrieveFile} />
-  //         <button type="submit" className="button">Submit</button>
-  //       </form>
-  //
-  //       <button onClick={signMessage}>Sign Message</button>
-  //
-  //     </header>
-  //   </div>
-  // );
 }
 
 export default App;

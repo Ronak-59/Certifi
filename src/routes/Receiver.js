@@ -27,12 +27,10 @@ function Receiver() {
         if(!dataReady) {
             let signedMessage = await utils.signMessage();
             let receivedCredentials = await getReceivedCredentials(signedMessage);
-            console.log(receivedCredentials);
             dataReady = true;
             setCreds(receivedCredentials);
         }
     }
-
 
     return (
         <table>

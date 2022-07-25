@@ -119,9 +119,8 @@ const utils = {
         this.contract = await this.tronWeb.contract(this.abi, this.contract_address);
     },
 
-    async runHashes() {
-        let h = await this.contract.hashes('test2').call();
-        console.log(h);
+    async runHashes(encryptedHash) {
+        return await this.contract.hashes(encryptedHash).call();
     },
 
     async issueCredential(_hash, recipient) {
