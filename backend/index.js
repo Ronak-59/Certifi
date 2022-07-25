@@ -1,6 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser');
+const cors = require('cors')
 const {createHash, encrypt, decrypt, getAddressFromSignature} = require('./utils/utils');
 const Credentials = require('./models/credentialSchema');
 require('dotenv').config();
@@ -8,6 +9,7 @@ const app = express()
 const port = 5544
 
 app.use(bodyParser.json());
+app.use(cors())
 
 app.get('/', (req, res) => {
     res.send('Backend all set');
