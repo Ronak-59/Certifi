@@ -34,10 +34,6 @@ function App() {
     console.log(cred);
   }
 
-  function signMessage() {
-    utils.signMessage().then( (result) => console.log(result));
-  }
-
   useEffect(() => {
     if(window.tronWeb) {
       tronWeb = window.tronWeb;

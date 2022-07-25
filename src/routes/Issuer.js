@@ -24,7 +24,7 @@ export function Issuer(props) {
             utils.setTronWeb(tronWeb);
             utils.setContract();
         }
-    });
+    }, []);
 
     return (
         <div>
@@ -110,12 +110,20 @@ export function IssueCredentials(props) {
 
 export function ViewCredentials(props) {
 
-    const fetchData = async () => {
-        let signature = utils.signMessage();
-        let data = await getIssuedCredentials(signature);
-    };
+    const [data, setData] = useState([])
 
-    fetchData();
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+    const fetchData = async () => {
+        if(!data.length) {
+            let signature = await utils.signMessage();
+            let data = await getIssuedCredentials(signature);
+            setData(data);
+            console.log(data);
+        }
+    };
 
     return (
         <div>

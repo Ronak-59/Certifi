@@ -4,8 +4,6 @@ const instance = axios.create({
     baseURL: 'http://54.89.89.217:5544'
 });
 
-const signature = "TODO";
-
 export const issueCredential = async (signature, credentialMetadata, blockchainTxnHash) => {
     try {
         const response = await instance.post('/issue-credential', {

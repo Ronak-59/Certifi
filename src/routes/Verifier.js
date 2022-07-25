@@ -10,7 +10,7 @@ function Verifier() {
 
     useEffect(() => {
         let data = fetchCredentialDetails(hash);
-    })
+    }, []);
 
     function redirect(e) {
         e.preventDefault();
