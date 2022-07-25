@@ -125,7 +125,7 @@ function Verifier() {
                             <div className="shadow sm:rounded-md sm:overflow-hidden">
                                 <div className="px-4 py-5 bg-white space-y-6 sm:p-6">
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700">Credential File</label>
+                                        <label className="block text-sm font-medium text-gray-700">Credential Hash File</label>
                                         <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
                                             <div className="space-y-1 text-center">
                                                 <svg
