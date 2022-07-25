@@ -3,18 +3,45 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@craco/craco": "^6.4.5",
+    "@headlessui/react": "^1.6.6",
+    "@heroicons/react": "^1.0.6",
+    "axios": "^0.27.2",
+    "buffer": "^6.0.3",
+    "classnames": "^2.3.1",
+    "core-js": "^3.23.4",
+    "ipfs-http-client": "^57.0.3",
+    "js-cookie": "^3.0.1",
+    "js-sha256": "^0.9.0",
+    "prop-types": "^15.8.1",
+    "querystring": "^0.2.1",
+    "react": "^18.2.0",
+    "react-app-polyfill": "^3.0.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.3.0",
+    "simplebar-react": "^2.4.1",
+    "tronweb": "^4.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.2.17",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.3.0",
-    "@testing-library/user-event": "^13.5.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "@testing-library/user-event": "^14.2.1",
+    "auto-changelog": "~2.4.0",
+    "autoprefixer": "^10.4.7",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "postcss": "^8.4.14",
+    "prettier": "2.7.1",
     "react-scripts": "5.0.1",
+    "sass": "^1.54.0",
+    "tailwindcss": "^3.1.6",
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
@@ -34,9 +61,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "querystring": "^0.2.1",
-    "tronweb": "^4.2.0"
   }
 }

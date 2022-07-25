@@ -1,0 +1,2 @@
+/welcome /landing/landing.html
+/* /index.html 200
