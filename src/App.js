@@ -45,14 +45,14 @@ function App() {
           {/*</nav>*/}
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/issuer" element={<Issuer />}>
+            <Route path="/institution" element={<Issuer />}>
               <Route path="issue-credentials" element={<IssueCredentials />} />
               <Route path="view-credentials" element={<ViewCredentials/>} />
             </Route>
             <Route path="/verifier" element={<Verifier />}>
               <Route path=":hash" element={<Verifier  />} />
             </Route>
-            <Route path="/receiver" element={<Receiver />} />
+            <Route path="/learner" element={<Receiver />} />
           </Routes>
         </Router>
       </div>
