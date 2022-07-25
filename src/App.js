@@ -1,14 +1,12 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
-import {Buffer} from 'buffer';
+import AppHeader from "./components/AppHeader";
 
 import Home from './routes/Home';
 import {Issuer, IssueCredentials, ViewCredentials} from './routes/Issuer';
 import Receiver from "./routes/Receiver";
 import Verifier from "./routes/Verifier";
 
-import logo from './logo.svg';
 import './App.css';
 import TronWeb from 'tronweb';
 import {useEffect} from "react";
@@ -36,14 +34,15 @@ function App() {
 
   return (
       <div className={"App"}>
+        <AppHeader address={publicAddress} />
         <Router>
-          <nav>
-            <ul>
-              <li><Link to="/issuer">Issuer</Link></li>
-              <li><Link to="/verifier">Verifier</Link></li>
-              <li><Link to="/receiver">Receiver</Link></li>
-            </ul>
-          </nav>
+          {/*<nav>*/}
+          {/*  <ul>*/}
+          {/*    <li><Link to="/issuer">Issuer</Link></li>*/}
+          {/*    <li><Link to="/verifier">Verifier</Link></li>*/}
+          {/*    <li><Link to="/receiver">Receiver</Link></li>*/}
+          {/*  </ul>*/}
+          {/*</nav>*/}
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/issuer" element={<Issuer />}>
