@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import {Buffer} from 'buffer';
 
 import Home from './routes/Home';
-import Issuer from './routes/Issuer';
+import {Issuer, IssueCredentials, ViewCredentials} from './routes/Issuer';
 import Receiver from "./routes/Receiver";
 import Verifier from "./routes/Verifier";
 
@@ -22,18 +22,11 @@ function App() {
   const solidityNode = 'https://api.shasta.trongrid.io';
   const eventServer = 'https://api.shasta.trongrid.io';
   let tronWeb = new TronWeb(fullNode,solidityNode,eventServer, '');
-  const [publicAddress, setPublicAddress] = useState('');
-  const [file, setFile] = useState(null);
-  const [urlArr, setUrlArr] = useState([]);
 
+  const [publicAddress, setPublicAddress] = useState('');
 
   function runHashes() {
     utils.runHashes();
-  }
-
-  function issueCredential() {
-    let cred = utils.issueCredential("test2", publicAddress);
-    console.log(cred);
   }
 
   function revokeCredential() {
@@ -44,32 +37,6 @@ function App() {
   function signMessage() {
     utils.signMessage().then( (result) => console.log(result));
   }
-
-  const retrieveFile = (e) => {
-    const data = e.target.files[0];
-    const reader = new window.FileReader();
-    reader.readAsArrayBuffer(data);
-
-    reader.onloadend = () => {
-      setFile(Buffer.from(reader.result, 'base64'));
-    };
-
-    console.log(file);
-
-    e.preventDefault();
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    try {
-      const created = await client.add(file);
-      const url = `https://ipfs.infura.io/ipfs/${created.path}`;
-      setUrlArr((prev) => [...prev, url]);
-    } catch (error) {
-      console.log(error.message);
-    }
-  };
 
   useEffect(() => {
     if(window.tronWeb) {
@@ -92,8 +59,13 @@ function App() {
           </nav>
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/issuer" element={<Issuer />} />
-            <Route path="/verifier" element={<Verifier />} />
+            <Route path="/issuer" element={<Issuer />}>
+              <Route path="issue-credentials" element={<IssueCredentials />} />
+              <Route path="view-credentials" element={<ViewCredentials/>} />
+            </Route>
+            <Route path="/verifier" element={<Verifier />}>
+              <Route path=":hash" element={<Verifier />} />
+            </Route>
             <Route path="/receiver" element={<Receiver />} />
           </Routes>
         </Router>
