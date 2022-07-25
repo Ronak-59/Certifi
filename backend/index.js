@@ -129,6 +129,5 @@ mongoose.connect(process.env.MONGO_DATABASE_URL).then(()=>{
     console.log('Connected to MongoDB');
     app.listen(port, () => {
         console.log(`Certifi backend listening on port ${port}`)
-        console.log(getAddressFromSignature('hello', '0x742945175f11faf6317a7ae103ede67693ee05aa60f6fb172c636479f6b37a032cc9a344ffb768b4383ebdc4774c44e2f155bfed800b256fef751668218a3ac01c'));
     })
 })

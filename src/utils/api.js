@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://54.89.89.217:5544';
-
 const instance = axios.create({
-    baseURL: 'https://some-domain.com/api/'
+    baseURL: 'http://54.89.89.217:5544'
 });
 const signature = "TODO";
 
