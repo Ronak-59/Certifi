@@ -1,10 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useParams, useNavigate} from 'react-router-dom';
+import { PaperClipIcon } from '@heroicons/react/solid'
 
 import {fetchCredentialDetails} from "../utils/api";
 import utils from "../utils/wallet";
 import TronWeb from "tronweb";
 import {sha256} from "js-sha256";
+import tick from '../tick.gif';
+import xmark from '../xmark.png';
 
 const connectUrl = 'https://api.shasta.trongrid.io';
 let tronWeb = new TronWeb({ fullHost: connectUrl }, '01');
@@ -14,6 +17,7 @@ function Verifier() {
     const navigate = useNavigate();
     const [verifyHash, setVerifyHash] = useState(''); //from the form
     const [verificationStatus, setVerificationStatus] = useState(false);
+    const [verificationFailed, setVerificationFailed] = useState(false);
     const [verifying, setVerifying] = useState(true);
     const [revoked, setRevoked] = useState(false);
     const [credJsonMetadata, setCredJsonMetadata] = useState({})
@@ -48,6 +52,11 @@ function Verifier() {
                 {
                     setRevoked(h.status === 2);
                     setVerificationStatus(true);
+                    setCredJsonMetadata(data.credentialMetadata);
+                }
+                else
+                {
+                    setVerificationFailed(true);
                 }
             }
         }
@@ -166,10 +175,51 @@ function Verifier() {
 
     return (
         <div>
-            <p>{hash}</p>
-            <p>Verifying: {verifying ? "verifying" : "done"} </p>
-            <p>Verified: {verificationStatus? "verified" : "invalid"}</p>
-            <p>Revoked: {revoked ? "revoked" : "valid"}</p>
+            <div className="bg-white shadow overflow-hidden sm:rounded-lg">
+                <div className="px-4 py-5 sm:px-6">
+                    <h3 className="text-lg leading-6 font-medium text-gray-900">Credential Validation Result</h3>
+                </div>
+                <div className="border-t border-gray-200">
+                    <dl>
+                        <div className="bg-gray-50 px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Credential Hash</dt>
+                            <dd className="break-words mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">{hash}</dd>
+                        </div>
+                        <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Verifying Issuer</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 grid place-items-center">{verificationStatus && (<img className="w-40 h-30" src={tick} />)}{verificationFailed && (<img className="w-40 h-30" src={xmark}></img>)}</dd>
+                        </div>
+                        <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Verifying Recipient</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 grid place-items-center">{verificationStatus && (<img className="w-40 h-30" src={tick} />)}{verificationFailed && (<img className="w-40 h-30" src={xmark}></img>)}</dd>
+                        </div>
+                        <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Verifying Credential Status</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2 grid place-items-center">{verificationStatus && (<img className="w-40 h-30" src={tick} />)}
+                                {revoked && (<img className="w-40 h-30" src={xmark}></img>)} </dd>
+                        </div>
+                        <div className="bg-white px-4 py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <dt className="text-sm font-medium text-gray-500">Download Credentials</dt>
+                            <dd className="mt-1 text-sm text-gray-900 sm:mt-0 sm:col-span-2">
+                                {verificationStatus && (<ul role="list" className="border border-gray-200 rounded-md divide-y divide-gray-200">
+                                    <li className="pl-3 pr-4 py-3 flex items-center justify-between text-sm">
+                                        <div className="w-0 flex-1 flex items-center">
+                                            <PaperClipIcon className="flex-shrink-0 h-5 w-5 text-gray-400" aria-hidden="true" />
+                                            <span className="ml-2 flex-1 w-0 truncate">Credential File</span>
+                                        </div>
+                                        <div className="ml-4 flex-shrink-0">
+                                            <a href={`https://ipfs.infura.io/ipfs/${credJsonMetadata.credentialFileHash}`} className="font-medium text-indigo-600 hover:text-indigo-500">
+                                                Download
+                                            </a>
+                                        </div>
+                                    </li>
+                                </ul>)}
+
+                            </dd>
+                        </div>
+                    </dl>
+                </div>
+            </div>
         </div>
     );
 }
