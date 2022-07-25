@@ -36,3 +36,82 @@
     transform: rotate(360deg);
   }
 }
+
+.cover {
+  background-image: url("https://images.unsplash.com/photo-1541701494587-cb58502866ab?ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8cGFpbnR8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=5000&q=60");
+  width: 100%;
+  height: 20vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+abbr {
+  text-decoration: none !important;
+}
+.overlay {
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  background: black;
+  opacity: 0.2;
+  position: absolute;
+}
+.profileDesc {
+  top: 80%;
+  z-index: 1;
+  position: absolute;
+}
+.profileImage {
+  border-radius: 50%;
+  height: auto;
+  width: 126px;
+  background: white;
+}
+.profileName {
+  color: black;
+  font-weight: 500;
+}
+
+.walletAdd {
+  color: black;
+  width: 100px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media only screen and (max-width: 768px) {
+  .inner-wrap {
+    padding-left: 15px;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  /*For mobile phones: */
+  .profileDesc {
+    margin-left: 8px;
+  }
+  .inner-wrap {
+    padding-left: 35px;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
+
+.card-grid {
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 2rem;
+  margin-block: 2rem;
+  padding: 0 1rem;
+  justify-items: center;
+  align-items: center;
+
+}
+
+
+
