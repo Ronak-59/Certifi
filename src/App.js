@@ -34,8 +34,9 @@ function App() {
 
   return (
       <div className={"App"}>
-        <AppHeader address={publicAddress} />
+
         <Router>
+          <AppHeader address={publicAddress} />
           {/*<nav>*/}
           {/*  <ul>*/}
           {/*    <li><Link to="/issuer">Issuer</Link></li>*/}
