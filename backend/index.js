@@ -30,7 +30,7 @@ app.post('/issued-credentials', async (req, res) => {
 
 app.post('/received-credentials', async(req, res) => {
     const signature = req.body.signature;
-
+    console.log(signature);
     try {
         const recipient = await getAddressFromSignature(process.env.SIGNATURE_MESSAGE, signature);
         const receivedCredentials = await Credentials.find({'credentialMetadata.recipient':recipient});

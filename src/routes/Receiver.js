@@ -8,7 +8,7 @@ const solidityNode = 'https://api.shasta.trongrid.io';
 const eventServer = 'https://api.shasta.trongrid.io';
 let tronWeb = new TronWeb(fullNode,solidityNode,eventServer, '');
 
-function Receiver() {
+async function Receiver() {
     const [publicAddress, setPublicAddress] = useState('');
 
     useEffect(() => {
@@ -20,12 +20,25 @@ function Receiver() {
         }
     });
 
-    let signedMessage = utils.signMessage();
+    let signedMessage = await utils.signMessage();
 
-    let data = getReceivedCredentials(signedMessage);
-
+    let receivedCredentials = await getReceivedCredentials(signedMessage);
+    console.log(receivedCredentials);
     return (
-        <p>Receive</p>
+        <table>
+            <tr key={"header"}>
+                {Object.keys(receivedCredentials[0]).map((key) => (
+                    <th>{key}</th>
+                ))}
+            </tr>
+            {receivedCredentials.map((item) => (
+                <tr key={item._id}>
+                    {Object.values(item).map((val) => (
+                        <td>{val.toString()}</td>
+                    ))}
+                </tr>
+            ))}
+        </table>
     );
 }
 
