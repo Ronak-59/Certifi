@@ -70,7 +70,7 @@ export default function Example(props) {
                                     props.address && <p className="text-white"> Logged in as {props.address}</p>
                                 }
                                 {
-                                    !props.address && <p className="text-white">You need the TronLink Extension installed.</p>
+                                    !props.address && <p className="text-white">You need the TronLink (Shasta) Extension installed.</p>
                                 }
                             </div>
                         </div>

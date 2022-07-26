@@ -48,7 +48,7 @@ export default function Home() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="max-w-2xl mx-auto py-16 sm:py-24 lg:py-32 lg:max-w-none">
                     <h2 className="text-2xl font-extrabold text-gray-900">What describes you the best?</h2>
-                    <p className="text-gray-600">Although both modes are available to all TRON wallet holders (enabling anyone to issue credentials), only the institution addresses will be integrated with <a href="https://didnetwork.org/">DID</a> for verification.</p>
+                    <p className="text-gray-600">Although both modes are available to all <span className="font-medium">TRON (Shasta) </span> wallet holders (enabling anyone to issue credentials), only the institution addresses will be integrated with <a href="https://didnetwork.org/">DID</a> for verification.</p>
 
                     <div className="mt-6 space-y-12 lg:space-y-0 lg:grid lg:grid-cols-2 lg:gap-x-2">
                         {callouts.map((callout) => (
