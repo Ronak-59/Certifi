@@ -15,6 +15,11 @@ Academic Credentialing Solution powered by IPFS and Tron Blockchain (Shasta Test
 
 - TronDao Forum Submission: [Certifi](https://forum.trondao.org/t/certifi-by-team-certifi-academic-credentials-powered-by-blockchain/4435)
 
+## How It Works
+
+![Certifi Diagram](https://user-images.githubusercontent.com/8841124/181114460-12cef95e-11c2-45ad-bbf1-947690c283d3.jpg)
+
+
 ## Tech-Stack
 
 - Frontend: React, Tailwind CSS
@@ -31,6 +36,10 @@ First clone the repo:
 ```bash
 git clone https://www.github.com/Ronak-59/CertiFi
 ```
+
+### Blockchain:
+
+Deploy the smart contract on Shasta Blockchain and use the contract address and ABI with TronWeb library in the frontend.
 
 ### Backend: 
 
