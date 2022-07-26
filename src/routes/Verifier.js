@@ -12,7 +12,7 @@ import xmark from '../xmark.png';
 const connectUrl = 'https://api.shasta.trongrid.io';
 let tronWeb = new TronWeb({ fullHost: connectUrl }, '01');
 
-function Verifier() {
+function Verifier(props) {
     let { hash } = useParams();
     const navigate = useNavigate();
     const [verifyHash, setVerifyHash] = useState(''); //from the form

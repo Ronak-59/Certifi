@@ -111,37 +111,35 @@ function timestampToDate(timestamp){
     return date;
 }
 
-class Card extends React.Component {
+function Card(props) {
 
-    render() {
+    function downloadCredential(metaData)  {
+        const json=JSON.stringify(metaData);
+        const blob=new Blob([json],{type:'application/json'});
+        const href = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = href;
+        link.download = "credential.json";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
         return (
         <a href='#'
            className="block p-6 max-w-md bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <div style={{textAlign: 'center', display: 'inline-table', position: 'relative'}}>
-                <img className="rounded-t-lg" onError={(event)=>event.target.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Gnome-application-certificate.svg/1024px-Gnome-application-certificate.svg.png")} src={'https://ipfs.infura.io/ipfs/'+this.props.details.credentialMetadata.credentialFileHash} alt="" style={{height: '150px'}}  />
+                <img className="rounded-t-lg" onError={(event)=>event.target.setAttribute("src","https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Gnome-application-certificate.svg/1024px-Gnome-application-certificate.svg.png")} src={'https://ipfs.infura.io/ipfs/'+props.details.credentialMetadata.credentialFileHash} alt="" style={{height: '150px'}}  />
             </div>
-            <p className="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">Issuer: {this.props.details.credentialMetadata.issuer}</p>
-            <p className="font-normal text-gray-700 dark:text-gray-400">Issued on: {timestampToDate(this.props.details.credentialIssuanceTimestamp)}</p>
-            <Button link={'https://ipfs.infura.io/ipfs/'+this.props.details.credentialMetadata.credentialFileHash} value='View'/>
-            <Button link={'../verifier/'+this.props.details.encryptedHash} value='Verify'/>
-            <Button link={'https://shasta.tronscan.org/#/transaction/'+this.props.details.blockchainTxnHash} value='View on TronScan'/>
-            <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Download</button>
+            <p className="mb-2 font-bold tracking-tight text-gray-900 dark:text-white">Issuer: {props.details.credentialMetadata.issuer}</p>
+            <p className="font-normal text-gray-700 dark:text-gray-400">Issued on: {timestampToDate(props.details.credentialIssuanceTimestamp)}</p>
+            <Button link={'https://ipfs.infura.io/ipfs/'+props.details.credentialMetadata.credentialFileHash} value='View'/>
+            <Button link={'../verifier/'+props.details.encryptedHash} value='Verify'/>
+            <Button link={'https://shasta.tronscan.org/#/transaction/'+props.details.blockchainTxnHash} value='View on TronScan'/>
+            <button type="button" onClick={(e) => {downloadCredential(props.details.credentialMetadata)}} className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Download</button>
         </a>
         )
-    }
 }
-
-// function downloadCredential(metaData) {
-//     const json=JSON.stringify(metaData);
-//     const blob=new Blob([json],{type:'application/json'});
-//     const href = URL.createObjectURL(blob);
-//     const link = document.createElement('a');
-//     link.href = href;
-//     link.download = "credential.json";
-//     document.body.appendChild(link);
-//     link.click();
-//     document.body.removeChild(link);
-// }
 
 
 export default Receiver;
